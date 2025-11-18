@@ -1,29 +1,39 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
-const services = [
-  { title: 'Gestion locative', desc: 'Mise en location, sélection des locataires, baux et états des lieux.' },
-  { title: 'Entretien & maintenance', desc: 'Suivi des interventions, artisans qualifiés, prévention des risques.' },
-  { title: 'Gestion des loyers', desc: 'Encaissement, relances, indexations et régularisations de charges.' },
-  { title: 'Reporting & transparence', desc: 'Tableaux de bord clairs et accès aux documents à tout moment.' },
+const items = [
+  { title: 'Gestion locative', desc: 'Sélection, baux, états des lieux, conformité.' },
+  { title: 'Maintenance', desc: 'Interventions suivies, prévention, artisans qualifiés.' },
+  { title: 'Loyers & charges', desc: 'Encaissement, relances, indexations, régularisations.' },
+  { title: 'Reporting', desc: 'Tableaux de bord clairs, documents accessibles.' },
 ]
 
 const Services = () => {
   return (
-    <section id="services" className="py-16 sm:py-24 bg-slate-50">
+    <section id="services" className="py-24 border-t" style={{borderColor:'#DADADA'}} aria-label="Services">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-end justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Services</h2>
-          <p className="text-sm text-slate-500">Premium • Fiable • Transparent</p>
+        <div className="mb-12">
+          <h2 className="text-4xl sm:text-5xl font-bold">Services</h2>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((s) => (
-            <div key={s.title} className="rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6">
-              <div className="w-10 h-10 rounded-lg bg-blue-600/10 text-blue-700 flex items-center justify-center font-bold mb-4">•</div>
-              <h3 className="font-semibold text-slate-900">{s.title}</h3>
-              <p className="text-slate-600 mt-2 text-sm leading-relaxed">{s.desc}</p>
-            </div>
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {items.map((s, i) => (
+            <motion.div
+              key={s.title}
+              variants={{ hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0, transition: { delay: i * 0.04, duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}
+              className="p-6 border rounded-xl bg-white" style={{borderColor:'#DADADA', boxShadow:'0 6px 18px rgba(0,0,0,0.04)'}}
+              whileHover={{ scale: 1.02, boxShadow: '0 10px 24px rgba(0,0,0,0.06)' }}
+              transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+            >
+              <h3 className="font-semibold text-lg">{s.title}</h3>
+              <p className="mt-2 text-sm opacity-70 leading-relaxed">{s.desc}</p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
